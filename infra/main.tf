@@ -24,7 +24,7 @@ resource "aws_vpc" "main" {
   }
 }
 
-#checkov:skip=CKV_AWS_130: This is an intentionally public subnet for demo purposes.
+#checkov:skip=CKV_AWS_130: "Intentionally public subnet for demo web app; production would use private subnets + ALB/NAT/SSM."
 resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.1.0/24"
@@ -34,6 +34,7 @@ resource "aws_subnet" "public_subnet" {
     Name = "public-subnet"
   }
 }
+
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
@@ -136,6 +137,7 @@ data "aws_ami" "amazon_linux" {
   }
 }
 
+#checkov:skip=CKV_AWS_135: "t2.micro used for cost/free-tier demo; EBS optimization not applicable/meaningful for this instance type."
 resource "aws_instance" "web_server" {
   ami                    = data.aws_ami.amazon_linux.id
   instance_type          = "t2.micro"
@@ -252,5 +254,15 @@ resource "aws_flow_log" "vpc" {
   iam_role_arn         = aws_iam_role.flow_logs_role.arn
 }
 
+resource "aws_kms_key" "cw_logs" {
+  description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+  deletion_window_in_days = 7
+  enable_key_rotation     = true
+}
+
+resource "aws_kms_alias" "cw_logs_alias" {
+  name          = "alias/devsecops-cw-logs"
+  target_key_id = aws_kms_key.cw_logs.key_id
+}
 
 
