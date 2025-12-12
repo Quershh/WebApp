@@ -257,8 +257,10 @@ resource "aws_flow_log" "vpc" {
 }
 
 data "aws_iam_policy_document" "kms_key_policy" {
+
+  # Allow account root to administer the key (but not wildcard kms:*)
   statement {
-    sid    = "Enable IAM User Permissions"
+    sid    = "AllowKeyAdministration"
     effect = "Allow"
 
     principals {
@@ -266,12 +268,27 @@ data "aws_iam_policy_document" "kms_key_policy" {
       identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
 
-    actions   = ["kms:*"]
+    actions = [
+      "kms:Create*",
+      "kms:Describe*",
+      "kms:Enable*",
+      "kms:List*",
+      "kms:Put*",
+      "kms:Update*",
+      "kms:Revoke*",
+      "kms:Disable*",
+      "kms:Get*",
+      "kms:Delete*",
+      "kms:ScheduleKeyDeletion",
+      "kms:CancelKeyDeletion"
+    ]
+
     resources = ["*"]
   }
 
+  # Allow CloudWatch Logs to use the key
   statement {
-    sid    = "Allow CloudWatch Logs"
+    sid    = "AllowCloudWatchLogsUsage"
     effect = "Allow"
 
     principals {
@@ -288,14 +305,25 @@ data "aws_iam_policy_document" "kms_key_policy" {
     ]
 
     resources = ["*"]
+
+    condition {
+      test     = "StringEquals"
+      variable = "kms:ViaService"
+      values   = ["logs.${var.aws_region}.amazonaws.com"]
+    }
   }
 }
+
+
+data "aws_caller_identity" "current" {}
 
 resource "aws_kms_key" "cw_logs" {
   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
   deletion_window_in_days = 7
   enable_key_rotation     = true
+  policy                  = data.aws_iam_policy_document.kms_key_policy.json
 }
+
 
 resource "aws_kms_alias" "cw_logs_alias" {
   name          = "alias/devsecops-cw-logs"

@@ -1,0 +1,872 @@
+  ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.2.495 
+
+terraform scan results:
+
+Passed checks: 69, Failed checks: 3, Skipped checks: 1
+
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+        PASSED for resource: aws_security_group.web_sg
+        File: \infra\main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+        PASSED for resource: aws_security_group.web_sg
+        File: \infra\main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+        PASSED for resource: aws_security_group.web_sg
+        File: \infra\main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-1-port-security
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+        PASSED for resource: aws_security_group.web_sg
+        File: \infra\main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-2
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+        PASSED for resource: aws_security_group.web_sg
+        File: \infra\main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-group-does-not-allow-all-traffic-on-all-ports
+Check: CKV_AWS_46: "Ensure no hard-coded secrets exist in EC2 user data"
+        PASSED for resource: aws_instance.web_server
+        File: \infra\main.tf:141-184
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/secrets-policies/bc-aws-secrets-1
+Check: CKV_AWS_126: "Ensure that detailed monitoring is enabled for EC2 instances"
+        PASSED for resource: aws_instance.web_server
+        File: \infra\main.tf:141-184
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances
+Check: CKV_AWS_88: "EC2 instance should not have public IP."
+        PASSED for resource: aws_instance.web_server
+        File: \infra\main.tf:141-184
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/public-policies/public-12
+Check: CKV_AWS_79: "Ensure Instance Metadata Service Version 1 is not enabled"
+        PASSED for resource: aws_instance.web_server
+        File: \infra\main.tf:141-184
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-31
+Check: CKV_AWS_8: "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted"
+        PASSED for resource: aws_instance.web_server
+        File: \infra\main.tf:141-184
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: aws_iam_role.ec2_role
+        File: \infra\main.tf:196-199
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+        PASSED for resource: aws_iam_role.ec2_role
+        File: \infra\main.tf:196-199
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+        PASSED for resource: aws_iam_role.ec2_role
+        File: \infra\main.tf:196-199
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-44
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: aws_iam_role_policy_attachment.ssm_core
+        File: \infra\main.tf:201-204
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_158: "Ensure that CloudWatch Log Group is encrypted by KMS"
+        PASSED for resource: aws_cloudwatch_log_group.vpc_flow_logs
+        File: \infra\main.tf:211-215
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms
+Check: CKV_AWS_66: "Ensure that CloudWatch Log Group specifies retention days"
+        PASSED for resource: aws_cloudwatch_log_group.vpc_flow_logs
+        File: \infra\main.tf:211-215
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/logging-13
+Check: CKV_AWS_338: "Ensure CloudWatch log groups retains logs for at least 1 year"
+        PASSED for resource: aws_cloudwatch_log_group.vpc_flow_logs
+        File: \infra\main.tf:211-215
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+        PASSED for resource: aws_iam_role.flow_logs_role
+        File: \infra\main.tf:227-230
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-274
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+        PASSED for resource: aws_iam_role.flow_logs_role
+        File: \infra\main.tf:227-230
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+        PASSED for resource: aws_iam_role.flow_logs_role
+        File: \infra\main.tf:227-230
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-44
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: aws_iam_role_policy.flow_logs_role_policy
+        File: \infra\main.tf:244-248
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-45
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: aws_iam_role_policy.flow_logs_role_policy
+        File: \infra\main.tf:244-248
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-48
+Check: CKV_AWS_227: "Ensure KMS key is enabled"
+        PASSED for resource: aws_kms_key.cw_logs
+        File: \infra\main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-aws-key-management-service-kms-key-is-enabled
+Check: CKV_AWS_33: "Ensure KMS key policy does not contain wildcard (*) principal"
+        PASSED for resource: aws_kms_key.cw_logs
+        File: \infra\main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-kms-key-policy-does-not-contain-wildcard-principal
+Check: CKV_AWS_7: "Ensure rotation for customer created CMKs is enabled"
+        PASSED for resource: aws_kms_key.cw_logs
+        File: \infra\main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/logging-8
+Check: CKV_AWS_41: "Ensure no hard coded AWS access key and secret key exists in provider"
+        PASSED for resource: aws.default
+        File: \infra\main.tf:12-14
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/secrets-policies/bc-aws-secrets-5
+Check: CKV_AWS_386: "Reduce potential for WhoAMI cloud image name confusion attack"
+        PASSED for resource: aws_ami.amazon_linux
+        File: \infra\main.tf:130-138
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-supply-chain-policies/bc-aws-386
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: aws_iam_policy_document.ec2_assume_role
+        File: \infra\main.tf:186-194
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-23
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+        PASSED for resource: aws_iam_policy_document.ec2_assume_role
+        File: \infra\main.tf:186-194
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-358
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+        PASSED for resource: aws_iam_policy_document.ec2_assume_role
+        File: \infra\main.tf:186-194
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-credentials-exposure
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+        PASSED for resource: aws_iam_policy_document.ec2_assume_role
+        File: \infra\main.tf:186-194
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-data-exfiltration
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+        PASSED for resource: aws_iam_policy_document.ec2_assume_role
+        File: \infra\main.tf:186-194
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+        PASSED for resource: aws_iam_policy_document.ec2_assume_role
+        File: \infra\main.tf:186-194
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-does-not-allow-privilege-escalation
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+        PASSED for resource: aws_iam_policy_document.ec2_assume_role
+        File: \infra\main.tf:186-194
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-283
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+        PASSED for resource: aws_iam_policy_document.ec2_assume_role
+        File: \infra\main.tf:186-194
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-write-access-without-constraint
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+        PASSED for resource: aws_iam_policy_document.ec2_assume_role
+        File: \infra\main.tf:186-194
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: aws_iam_policy_document.ec2_assume_role
+        File: \infra\main.tf:186-194
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-43
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: aws_iam_policy_document.flow_logs_assume_role
+        File: \infra\main.tf:217-225
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-23
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+        PASSED for resource: aws_iam_policy_document.flow_logs_assume_role
+        File: \infra\main.tf:217-225
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-358
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+        PASSED for resource: aws_iam_policy_document.flow_logs_assume_role
+        File: \infra\main.tf:217-225
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-credentials-exposure
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+        PASSED for resource: aws_iam_policy_document.flow_logs_assume_role
+        File: \infra\main.tf:217-225
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-data-exfiltration
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+        PASSED for resource: aws_iam_policy_document.flow_logs_assume_role
+        File: \infra\main.tf:217-225
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+        PASSED for resource: aws_iam_policy_document.flow_logs_assume_role
+        File: \infra\main.tf:217-225
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-does-not-allow-privilege-escalation
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+        PASSED for resource: aws_iam_policy_document.flow_logs_assume_role
+        File: \infra\main.tf:217-225
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-283
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+        PASSED for resource: aws_iam_policy_document.flow_logs_assume_role
+        File: \infra\main.tf:217-225
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-write-access-without-constraint
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+        PASSED for resource: aws_iam_policy_document.flow_logs_assume_role
+        File: \infra\main.tf:217-225
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: aws_iam_policy_document.flow_logs_assume_role
+        File: \infra\main.tf:217-225
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-43
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+        PASSED for resource: aws_iam_policy_document.flow_logs_policy
+        File: \infra\main.tf:232-242
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-23
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+        PASSED for resource: aws_iam_policy_document.flow_logs_policy
+        File: \infra\main.tf:232-242
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-358
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+        PASSED for resource: aws_iam_policy_document.flow_logs_policy
+        File: \infra\main.tf:232-242
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-credentials-exposure
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+        PASSED for resource: aws_iam_policy_document.flow_logs_policy
+        File: \infra\main.tf:232-242
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-data-exfiltration
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+        PASSED for resource: aws_iam_policy_document.flow_logs_policy
+        File: \infra\main.tf:232-242
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+        PASSED for resource: aws_iam_policy_document.flow_logs_policy
+        File: \infra\main.tf:232-242
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-does-not-allow-privilege-escalation
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+        PASSED for resource: aws_iam_policy_document.flow_logs_policy
+        File: \infra\main.tf:232-242
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-283
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+        PASSED for resource: aws_iam_policy_document.flow_logs_policy
+        File: \infra\main.tf:232-242
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-write-access-without-constraint
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+        PASSED for resource: aws_iam_policy_document.flow_logs_policy
+        File: \infra\main.tf:232-242
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+        PASSED for resource: aws_iam_policy_document.flow_logs_policy
+        File: \infra\main.tf:232-242
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-43
+Check: CKV2_AWS_35: "AWS NAT Gateways should be utilized for the default route"
+        PASSED for resource: aws_route_table.public_rt
+        File: \main.tf:47-58
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-nat-gateways-are-utilized-for-the-default-route
+Check: CKV2_AWS_56: "Ensure AWS Managed IAMFullAccess IAM policy is not used."
+        PASSED for resource: aws_iam_role.ec2_role
+        File: \main.tf:196-199
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-56
+Check: CKV2_AWS_56: "Ensure AWS Managed IAMFullAccess IAM policy is not used."
+        PASSED for resource: aws_iam_role_policy_attachment.ssm_core
+        File: \main.tf:201-204
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-56
+Check: CKV2_AWS_56: "Ensure AWS Managed IAMFullAccess IAM policy is not used."
+        PASSED for resource: aws_iam_role.flow_logs_role
+        File: \main.tf:227-230
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-56
+Check: CKV2_AWS_41: "Ensure an IAM role is attached to EC2 instance"
+        PASSED for resource: aws_instance.web_server
+        File: \main.tf:141-184
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-an-iam-role-is-attached-to-ec2-instance
+Check: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+        PASSED for resource: aws_security_group.web_sg
+        File: \main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-that-security-groups-are-attached-to-ec2-instances-or-elastic-network-interfaces-enis
+Check: CKV2_AWS_11: "Ensure VPC flow logging is enabled in all VPCs"
+        PASSED for resource: aws_vpc.main
+        File: \main.tf:17-25
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/logging-9-enable-vpc-flow-logging
+Check: CKV2_AWS_44: "Ensure AWS route table with VPC peering does not contain routes overly permissive to all traffic"
+        PASSED for resource: aws_route_table.public_rt
+        File: \main.tf:47-58
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-route-table-with-vpc-peering-does-not-contain-routes-overly-permissive-to-all-traffic
+Check: CKV2_AWS_12: "Ensure the default security group of every VPC restricts all traffic"
+        PASSED for resource: aws_vpc.main
+        File: \main.tf:17-25
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-4
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+        PASSED for resource: aws_iam_policy_document.ec2_assume_role
+        File: \main.tf:186-194
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-40
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+        PASSED for resource: aws_iam_policy_document.flow_logs_assume_role
+        File: \main.tf:217-225
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-40
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+        PASSED for resource: aws_iam_policy_document.flow_logs_policy
+        File: \main.tf:232-242
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-40
+Check: CKV_AWS_130: "Ensure VPC subnets do not assign public IP by default"
+        FAILED for resource: aws_subnet.public_subnet
+        File: \infra\main.tf:28-36
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-vpc-subnets-do-not-assign-public-ip-by-default
+
+                28 | resource "aws_subnet" "public_subnet" {
+                29 |   vpc_id                  = aws_vpc.main.id
+                30 |   cidr_block              = "10.0.1.0/24"
+                31 |   map_public_ip_on_launch = true
+                32 |
+                33 |   tags = {
+                34 |     Name = "public-subnet"
+                35 |   }
+                36 | }
+
+Check: CKV_AWS_135: "Ensure that EC2 is EBS optimized"
+        FAILED for resource: aws_instance.web_server
+        File: \infra\main.tf:141-184
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized
+
+                141 | resource "aws_instance" "web_server" {
+                142 |   ami                    = data.aws_ami.amazon_linux.id
+                143 |   instance_type          = "t2.micro"
+                144 |   subnet_id              = aws_subnet.public_subnet.id
+                145 |   vpc_security_group_ids = [aws_security_group.web_sg.id]
+                146 |
+                147 |   # CKV_AWS_126
+                148 |   monitoring = true
+                149 |
+                150 |   # CKV_AWS_79 (IMDSv2) Protects against SSRF attacks and others
+                151 |   metadata_options {
+                152 |     http_endpoint = "enabled"
+                153 |     http_tokens   = "required"
+                154 |   }
+                155 |
+                156 |   # CKV_AWS_8 (EBS encryption)
+                157 |   root_block_device {
+                158 |     encrypted = true
+                159 |   }
+                160 |
+                161 |   # CKV2_AWS_41 (IAM role attached) â€“
+                162 |   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+                163 |
+                164 |   user_data = <<-EOF
+                165 |     #!/bin/bash
+                166 |     yum update -y
+                167 |     yum install -y python3 git
+                168 |     pip3 install flask
+                169 |     cat << 'APP' > /home/ec2-user/app.py
+                143 |   instance_type          = "t2.micro"
+                144 |   subnet_id              = aws_subnet.public_subnet.id
+                145 |   vpc_security_group_ids = [aws_security_group.web_sg.id]
+                146 |
+                147 |   # CKV_AWS_126
+                148 |   monitoring = true
+                149 |
+                150 |   # CKV_AWS_79 (IMDSv2) Protects against SSRF attacks and others
+                151 |   metadata_options {
+                152 |     http_endpoint = "enabled"
+                153 |     http_tokens   = "required"
+                154 |   }
+                155 |
+                156 |   # CKV_AWS_8 (EBS encryption)
+                157 |   root_block_device {
+                158 |     encrypted = true
+                159 |   }
+                160 |
+                161 |   # CKV2_AWS_41 (IAM role attached) â€“
+                162 |   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+                163 |
+                164 |   user_data = <<-EOF
+                165 |     #!/bin/bash
+                166 |     yum update -y
+                167 |     yum install -y python3 git
+                168 |     pip3 install flask
+                169 |     cat << 'APP' > /home/ec2-user/app.py
+                144 |   subnet_id              = aws_subnet.public_subnet.id
+                145 |   vpc_security_group_ids = [aws_security_group.web_sg.id]
+                146 |
+                147 |   # CKV_AWS_126
+                148 |   monitoring = true
+                149 |
+                150 |   # CKV_AWS_79 (IMDSv2) Protects against SSRF attacks and others
+                151 |   metadata_options {
+                152 |     http_endpoint = "enabled"
+                153 |     http_tokens   = "required"
+                154 |   }
+                155 |
+                156 |   # CKV_AWS_8 (EBS encryption)
+                157 |   root_block_device {
+                158 |     encrypted = true
+                159 |   }
+                160 |
+                161 |   # CKV2_AWS_41 (IAM role attached) â€“
+                162 |   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+                163 |
+                164 |   user_data = <<-EOF
+                165 |     #!/bin/bash
+                166 |     yum update -y
+                167 |     yum install -y python3 git
+                168 |     pip3 install flask
+                169 |     cat << 'APP' > /home/ec2-user/app.py
+                146 |
+                147 |   # CKV_AWS_126
+                148 |   monitoring = true
+                149 |
+                150 |   # CKV_AWS_79 (IMDSv2) Protects against SSRF attacks and others
+                151 |   metadata_options {
+                152 |     http_endpoint = "enabled"
+                153 |     http_tokens   = "required"
+                154 |   }
+                155 |
+                156 |   # CKV_AWS_8 (EBS encryption)
+                157 |   root_block_device {
+                158 |     encrypted = true
+                159 |   }
+                160 |
+                161 |   # CKV2_AWS_41 (IAM role attached) â€“
+                162 |   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+                163 |
+                164 |   user_data = <<-EOF
+                165 |     #!/bin/bash
+                166 |     yum update -y
+                167 |     yum install -y python3 git
+                168 |     pip3 install flask
+                169 |     cat << 'APP' > /home/ec2-user/app.py
+                149 |
+                150 |   # CKV_AWS_79 (IMDSv2) Protects against SSRF attacks and others
+                151 |   metadata_options {
+                152 |     http_endpoint = "enabled"
+                153 |     http_tokens   = "required"
+                154 |   }
+                155 |
+                156 |   # CKV_AWS_8 (EBS encryption)
+                157 |   root_block_device {
+                158 |     encrypted = true
+                159 |   }
+                160 |
+                161 |   # CKV2_AWS_41 (IAM role attached) â€“
+                162 |   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+                163 |
+                164 |   user_data = <<-EOF
+                165 |     #!/bin/bash
+                166 |     yum update -y
+                167 |     yum install -y python3 git
+                168 |     pip3 install flask
+                169 |     cat << 'APP' > /home/ec2-user/app.py
+                153 |     http_tokens   = "required"
+                154 |   }
+                155 |
+                156 |   # CKV_AWS_8 (EBS encryption)
+                157 |   root_block_device {
+                158 |     encrypted = true
+                159 |   }
+                160 |
+                161 |   # CKV2_AWS_41 (IAM role attached) â€“
+                162 |   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+                163 |
+                164 |   user_data = <<-EOF
+                165 |     #!/bin/bash
+                166 |     yum update -y
+                167 |     yum install -y python3 git
+                168 |     pip3 install flask
+                169 |     cat << 'APP' > /home/ec2-user/app.py
+                170 |     from flask import Flask
+                171 |     app = Flask(__name__)
+                172 |     @app.route("/")
+                173 |     def hello():
+                159 |   }
+                160 |
+                161 |   # CKV2_AWS_41 (IAM role attached) â€“
+                162 |   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+                163 |
+                164 |   user_data = <<-EOF
+                165 |     #!/bin/bash
+                166 |     yum update -y
+                167 |     yum install -y python3 git
+                168 |     pip3 install flask
+                169 |     cat << 'APP' > /home/ec2-user/app.py
+                170 |     from flask import Flask
+                171 |     app = Flask(__name__)
+                172 |     @app.route("/")
+                173 |     def hello():
+                165 |     #!/bin/bash
+                166 |     yum update -y
+                167 |     yum install -y python3 git
+                168 |     pip3 install flask
+                169 |     cat << 'APP' > /home/ec2-user/app.py
+                170 |     from flask import Flask
+                171 |     app = Flask(__name__)
+                172 |     @app.route("/")
+                173 |     def hello():
+                174 |         return "Hello from a hardened DevSecOps EC2 instance!"
+                175 |     if __name__ == "__main__":
+                176 |         app.run(host="0.0.0.0", port=80)
+                170 |     from flask import Flask
+                171 |     app = Flask(__name__)
+                172 |     @app.route("/")
+                173 |     def hello():
+                174 |         return "Hello from a hardened DevSecOps EC2 instance!"
+                175 |     if __name__ == "__main__":
+                176 |         app.run(host="0.0.0.0", port=80)
+                177 |     APP
+                174 |         return "Hello from a hardened DevSecOps EC2 instance!"
+                175 |     if __name__ == "__main__":
+                176 |         app.run(host="0.0.0.0", port=80)
+                177 |     APP
+                176 |         app.run(host="0.0.0.0", port=80)
+                177 |     APP
+                178 |     python3 /home/ec2-user/app.py &
+                177 |     APP
+                178 |     python3 /home/ec2-user/app.py &
+                178 |     python3 /home/ec2-user/app.py &
+                179 |   EOF
+                180 |
+                181 |   tags = {
+                182 |     Name = "devsecops-web-ec2"
+                183 |   }
+                184 | }
+
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+        FAILED for resource: aws_kms_key.cw_logs
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+
+                258 | resource "aws_kms_key" "cw_logs" {
+                259 |   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+                260 |   deletion_window_in_days = 7
+                179 |   EOF
+                180 |
+                181 |   tags = {
+                182 |     Name = "devsecops-web-ec2"
+                183 |   }
+                184 | }
+
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+        FAILED for resource: aws_kms_key.cw_logs
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+
+                258 | resource "aws_kms_key" "cw_logs" {
+                259 |   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+                179 |   EOF
+                180 |
+                181 |   tags = {
+                182 |     Name = "devsecops-web-ec2"
+                183 |   }
+                184 | }
+
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+        FAILED for resource: aws_kms_key.cw_logs
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+                179 |   EOF
+                180 |
+                181 |   tags = {
+                182 |     Name = "devsecops-web-ec2"
+                183 |   }
+                184 | }
+
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+        FAILED for resource: aws_kms_key.cw_logs
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+
+                258 | resource "aws_kms_key" "cw_logs" {
+                259 |   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+                179 |   EOF
+                180 |
+                181 |   tags = {
+                182 |     Name = "devsecops-web-ec2"
+                183 |   }
+                184 | }
+
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+        FAILED for resource: aws_kms_key.cw_logs
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+
+                258 | resource "aws_kms_key" "cw_logs" {
+                259 |   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+                260 |   deletion_window_in_days = 7
+                261 |   enable_key_rotation     = true
+                179 |   EOF
+                180 |
+                181 |   tags = {
+                182 |     Name = "devsecops-web-ec2"
+                183 |   }
+                184 | }
+
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+        FAILED for resource: aws_kms_key.cw_logs
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+
+                258 | resource "aws_kms_key" "cw_logs" {
+                259 |   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+                179 |   EOF
+                180 |
+                181 |   tags = {
+                182 |     Name = "devsecops-web-ec2"
+                183 |   }
+                184 | }
+
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+        FAILED for resource: aws_kms_key.cw_logs
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+                179 |   EOF
+                180 |
+                181 |   tags = {
+                182 |     Name = "devsecops-web-ec2"
+                183 |   }
+                184 | }
+                179 |   EOF
+                180 |
+                181 |   tags = {
+                182 |     Name = "devsecops-web-ec2"
+                181 |   tags = {
+                182 |     Name = "devsecops-web-ec2"
+                183 |   }
+                184 | }
+
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+                182 |     Name = "devsecops-web-ec2"
+                183 |   }
+                184 | }
+
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+                183 |   }
+                184 | }
+
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+        FAILED for resource: aws_kms_key.cw_logs
+        FAILED for resource: aws_kms_key.cw_logs
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+
+                258 | resource "aws_kms_key" "cw_logs" {
+                259 |   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+                260 |   deletion_window_in_days = 7
+                261 |   enable_key_rotation     = true
+                262 | }
+
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+        SKIPPED for resource: aws_security_group.web_sg
+        Suppress comment:  "Demo web app intentionally exposed on HTTP; in production will use ALB/WAF/HTTPS and private subnets."
+        File: \infra\main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+
+
+
+
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+
+                258 | resource "aws_kms_key" "cw_logs" {
+                259 |   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+                260 |   deletion_window_in_days = 7
+                261 |   enable_key_rotation     = true
+                262 | }
+
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+        SKIPPED for resource: aws_security_group.web_sg
+        Suppress comment:  "Demo web app intentionally exposed on HTTP; in production will use ALB/WAF/HTTPS and private subnets."
+        File: \infra\main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+
+
+
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+
+                258 | resource "aws_kms_key" "cw_logs" {
+                259 |   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+                260 |   deletion_window_in_days = 7
+                261 |   enable_key_rotation     = true
+                262 | }
+
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+        SKIPPED for resource: aws_security_group.web_sg
+        Suppress comment:  "Demo web app intentionally exposed on HTTP; in production will use ALB/WAF/HTTPS and private subnets."
+        File: \infra\main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+
+
+
+
+
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+
+                258 | resource "aws_kms_key" "cw_logs" {
+                259 |   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+                260 |   deletion_window_in_days = 7
+                261 |   enable_key_rotation     = true
+                262 | }
+
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+        SKIPPED for resource: aws_security_group.web_sg
+        Suppress comment:  "Demo web app intentionally exposed on HTTP; in production will use ALB/WAF/HTTPS and private subnets."
+        File: \infra\main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+
+
+
+
+        File: \main.tf:258-262
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-2-64
+
+                258 | resource "aws_kms_key" "cw_logs" {
+                259 |   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+                260 |   deletion_window_in_days = 7
+                261 |   enable_key_rotation     = true
+                262 | }
+
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+        SKIPPED for resource: aws_security_group.web_sg
+        Suppress comment:  "Demo web app intentionally exposed on HTTP; in production will use ALB/WAF/HTTPS and private subnets."
+        File: \infra\main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+                258 | resource "aws_kms_key" "cw_logs" {
+                259 |   description             = "KMS key for CloudWatch Logs encryption (DevSecOps project)"
+                260 |   deletion_window_in_days = 7
+                261 |   enable_key_rotation     = true
+                262 | }
+
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+        SKIPPED for resource: aws_security_group.web_sg
+        Suppress comment:  "Demo web app intentionally exposed on HTTP; in production will use ALB/WAF/HTTPS and private subnets."
+        File: \infra\main.tf:65-115
+                261 |   enable_key_rotation     = true
+                262 | }
+
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+        SKIPPED for resource: aws_security_group.web_sg
+        Suppress comment:  "Demo web app intentionally exposed on HTTP; in production will use ALB/WAF/HTTPS and private subnets."
+        File: \infra\main.tf:65-115
+        SKIPPED for resource: aws_security_group.web_sg
+        Suppress comment:  "Demo web app intentionally exposed on HTTP; in production will use ALB/WAF/HTTPS and private subnets."
+        File: \infra\main.tf:65-115
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+
+
+
+
+
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+
+
+
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+
+
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+
+
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+PS C:\Users\callu\OneDrive\Desktop\Devops\Web App Project\WebApp>
+
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
