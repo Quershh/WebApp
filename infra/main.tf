@@ -175,7 +175,7 @@ resource "aws_instance" "web_server" {
     def hello():
         return "Hello from a hardened DevSecOps EC2 instance!"
     if __name__ == "__main__":
-        app.run(host="0.0.0.0", port=80)
+        app.run(host="127.0.0.1", port=80)
     APP
     python3 /home/ec2-user/app.py &
   EOF
