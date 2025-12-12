@@ -104,7 +104,7 @@ resource "aws_instance" "web_server" {
   # CKV_AWS_126
   monitoring = true
 
-  # CKV_AWS_79 (IMDSv2)
+  # CKV_AWS_79 (IMDSv2) Protects against SSRF attacks and others 
   metadata_options {
     http_endpoint = "enabled"
     http_tokens   = "required"
@@ -115,7 +115,7 @@ resource "aws_instance" "web_server" {
     encrypted = true
   }
 
-  # CKV2_AWS_41 (IAM role attached) – we’ll add the instance profile in step 1.2
+  # CKV2_AWS_41 (IAM role attached) – 
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
   user_data = <<-EOF
@@ -138,6 +138,31 @@ resource "aws_instance" "web_server" {
   tags = {
     Name = "devsecops-web-ec2"
   }
+}
+
+data "aws_iam_policy_document" "ec2_assume_role" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "ec2_role" {
+  name               = "devsecops-ec2-role"
+  assume_role_policy = data.aws_iam_policy_document.ec2_assume_role.json
+}
+
+resource "aws_iam_role_policy_attachment" "ssm_core" {
+  role       = aws_iam_role.ec2_role.name
+  policy_arn  = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name = "devsecops-ec2-profile"
+  role = aws_iam_role.ec2_role.name
 }
 
 
