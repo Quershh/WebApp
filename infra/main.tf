@@ -36,8 +36,6 @@ resource "aws_subnet" "public_subnet" {
 }
 
 
-
-
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
@@ -331,4 +329,14 @@ resource "aws_kms_alias" "cw_logs_alias" {
   target_key_id = aws_kms_key.cw_logs.key_id
 }
 
+terraform {
+  backend "s3" {
+    bucket         = "devsecops-terraform-webapp-state-708426825297"
+    key            = "infra/terraform.tfstate"
+    region         = "eu-west-2"
+    dynamodb_table = "devsecops-terraform-webapp-locks"
+    encrypt        = true
+  }
 
+  required_version = ">= 1.3.0"
+}
