@@ -1,4 +1,12 @@
 terraform {
+  backend "s3" {
+    bucket         = "devsecops-terraform-webapp-state-708426825297"
+    key            = "infra/terraform.tfstate"
+    region         = "eu-west-2"
+    dynamodb_table = "devsecops-terraform-webapp-locks"
+    encrypt        = true
+  }
+
   required_version = ">= 1.3.0"
 
   required_providers {
@@ -8,6 +16,7 @@ terraform {
     }
   }
 }
+
 
 provider "aws" {
   region = var.aws_region
@@ -211,7 +220,8 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
   name              = "/aws/vpc/devsecops-flow-logs"
   retention_in_days = 365
-  kms_key_id = aws_kms_key.cw_logs
+  kms_key_id = aws_kms_key.cw_logs.id
+
 }
 
 data "aws_iam_policy_document" "flow_logs_assume_role" {
@@ -329,14 +339,3 @@ resource "aws_kms_alias" "cw_logs_alias" {
   target_key_id = aws_kms_key.cw_logs.key_id
 }
 
-terraform {
-  backend "s3" {
-    bucket         = "devsecops-terraform-webapp-state-708426825297"
-    key            = "infra/terraform.tfstate"
-    region         = "eu-west-2"
-    dynamodb_table = "devsecops-terraform-webapp-locks"
-    encrypt        = true
-  }
-
-  required_version = ">= 1.3.0"
-}

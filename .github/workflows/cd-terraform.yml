@@ -6,7 +6,7 @@ on:
       - main
 
 permissions:
-  id-token: write   # Required for OIDC
+  id-token: write
   contents: read
 
 jobs:
@@ -16,6 +16,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: infra
 
     steps:
       - name: Checkout repository
@@ -24,7 +25,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::708426825297:oidc-provider/token.actions.githubusercontent.com
+          role-to-assume: arn:aws:iam::708426825297:oidc-provider/token.actions.githubusercontent.com:role/github-actions-terraform-deploy
           aws-region: eu-west-2
 
       - name: Set up Terraform
@@ -32,7 +33,7 @@ jobs:
         with:
           terraform_version: 1.6.6
 
-      - name: Terraform Init
+      - name: Terraform Init (Remote State)
         run: terraform init
         working-directory: infra
 
@@ -46,4 +47,4 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        working-directory: infra    
+        working-directory: infra
