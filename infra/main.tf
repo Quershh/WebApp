@@ -312,17 +312,27 @@ data "aws_iam_policy_document" "kms_key_policy" {
     "kms:Decrypt",
     "kms:ReEncrypt*",
     "kms:GenerateDataKey*",
-    "kms:DescribeKey"
+    "kms:DescribeKey",
+    "kms:CreateGrant"
   ]
 
   resources = ["*"]
 
   condition {
+    test     = "Bool"
+    variable = "kms:GrantIsForAWSResource"
+    values   = ["true"]
+  }
+
+  condition {
     test     = "ArnLike"
     variable = "kms:EncryptionContext:aws:logs:arn"
-    values   = ["arn:aws:logs:eu-west-2:${data.aws_caller_identity.current.account_id}:log-group:*"]
+    values   = [
+      "arn:aws:logs:eu-west-2:${data.aws_caller_identity.current.account_id}:log-group:*"
+    ]
   }
 }
+
 
 }
 
