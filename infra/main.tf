@@ -298,31 +298,32 @@ data "aws_iam_policy_document" "kms_key_policy" {
   }
 
   # Allow CloudWatch Logs to use the key
-  statement {
-    sid    = "AllowCloudWatchLogsUsage"
-    effect = "Allow"
+ statement {
+  sid    = "AllowCloudWatchLogsUsage"
+  effect = "Allow"
 
-    principals {
-      type        = "Service"
-      identifiers = ["logs.${var.aws_region}.amazonaws.com"]
-    }
-
-    actions = [
-      "kms:Encrypt",
-      "kms:Decrypt",
-      "kms:ReEncrypt*",
-      "kms:GenerateDataKey*",
-      "kms:DescribeKey"
-    ]
-
-    resources = ["*"]
-
-    condition {
-      test     = "StringEquals"
-      variable = "kms:ViaService"
-      values   = ["logs.${var.aws_region}.amazonaws.com"]
-    }
+  principals {
+    type        = "Service"
+    identifiers = ["logs.eu-west-2.amazonaws.com"]
   }
+
+  actions = [
+    "kms:Encrypt",
+    "kms:Decrypt",
+    "kms:ReEncrypt*",
+    "kms:GenerateDataKey*",
+    "kms:DescribeKey"
+  ]
+
+  resources = ["*"]
+
+  condition {
+    test     = "ArnLike"
+    variable = "kms:EncryptionContext:aws:logs:arn"
+    values   = ["arn:aws:logs:eu-west-2:${data.aws_caller_identity.current.account_id}:log-group:*"]
+  }
+}
+
 }
 
 
