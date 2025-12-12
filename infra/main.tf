@@ -65,25 +65,65 @@ resource "aws_security_group" "web_sg" {
   description = "Security group for web server"
   vpc_id      = aws_vpc.main.id
 
+  #checkov:skip=CKV_AWS_260: "Demo web app intentionally exposed on HTTP; in production will use ALB/WAF/HTTPS and private subnets."
   ingress {
-    description = "HTTP"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  description = "HTTP (demo)"
+  from_port   = 80
+  to_port     = 80
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+}
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  description = "Allow outbound HTTP/HTTPS and DNS"
+  from_port   = 443
+  to_port     = 443
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+egress {
+  description = "Allow outbound HTTP"
+  from_port   = 80
+  to_port     = 80
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+egress {
+  description = "Allow DNS (UDP)"
+  from_port   = 53
+  to_port     = 53
+  protocol    = "udp"
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
+egress {
+  description = "Allow DNS (TCP)"
+  from_port   = 53
+  to_port     = 53
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+}
+
 
   tags = {
     Name = "devsecops-web-sg"
   }
 }
+
+resource "aws_default_security_group" "default" {
+  vpc_id = aws_vpc.main.id
+
+  # No ingress / no egress rules = locked down
+  ingress = []
+  egress  = []
+
+  tags = {
+    Name = "devsecops-default-sg-locked"
+  }
+}
+
 
 data "aws_ami" "amazon_linux" {
   most_recent = true
