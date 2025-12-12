@@ -1,0 +1,376 @@
+       _               _
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.2.495
+
+terraform scan results:
+
+Passed checks: 10, Failed checks: 11, Skipped checks: 0
+
+Check: CKV_AWS_386: "Reduce potential for WhoAMI cloud image name confusion attack"
+        PASSED for resource: aws_ami.amazon_linux
+        File: \infra\main.tf:88-96
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-supply-chain-policies/bc-aws-386
+Check: CKV_AWS_41: "Ensure no hard coded AWS access key and secret key exists in provider"
+        PASSED for resource: aws.default
+        File: \infra\main.tf:12-14
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/secrets-policies/bc-aws-secrets-5
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+        PASSED for resource: aws_security_group.web_sg
+        File: \infra\main.tf:63-86
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-1-port-security
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+        PASSED for resource: aws_security_group.web_sg
+        File: \infra\main.tf:63-86
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-2
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+        PASSED for resource: aws_security_group.web_sg
+        File: \infra\main.tf:63-86
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-group-does-not-allow-all-traffic-on-all-ports
+Check: CKV_AWS_46: "Ensure no hard-coded secrets exist in EC2 user data"
+        PASSED for resource: aws_instance.web_server
+        File: \infra\main.tf:98-129
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/secrets-policies/bc-aws-secrets-1
+Check: CKV_AWS_88: "EC2 instance should not have public IP."
+        PASSED for resource: aws_instance.web_server
+        File: \infra\main.tf:98-129
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/public-policies/public-12
+Check: CKV2_AWS_35: "AWS NAT Gateways should be utilized for the default route"
+        PASSED for resource: aws_route_table.public_rt
+        File: \main.tf:45-56
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-nat-gateways-are-utilized-for-the-default-route
+Check: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+        PASSED for resource: aws_security_group.web_sg
+        File: \main.tf:63-86
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-that-security-groups-are-attached-to-ec2-instances-or-elastic-network-interfaces-enis
+Check: CKV2_AWS_44: "Ensure AWS route table with VPC peering does not contain routes overly permissive to all traffic"
+        PASSED for resource: aws_route_table.public_rt
+        File: \main.tf:45-56
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-route-table-with-vpc-peering-does-not-contain-routes-overly-permissive-to-all-traffic
+Check: CKV_AWS_130: "Ensure VPC subnets do not assign public IP by default"
+        FAILED for resource: aws_subnet.public_subnet
+        File: \infra\main.tf:27-35
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-vpc-subnets-do-not-assign-public-ip-by-default
+
+                27 | resource "aws_subnet" "public_subnet" {
+                28 |   vpc_id                  = aws_vpc.main.id
+                29 |   cidr_block              = "10.0.1.0/24"
+                30 |   map_public_ip_on_launch = true
+                31 |
+                32 |   tags = {
+                33 |     Name = "public-subnet"
+                34 |   }
+                35 | }
+
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+        FAILED for resource: aws_security_group.web_sg
+        File: \infra\main.tf:63-86
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31
+
+                63 | resource "aws_security_group" "web_sg" {
+                64 |   name        = "devsecops-web-sg"
+                65 |   description = "Security group for web server"
+                66 |   vpc_id      = aws_vpc.main.id
+                67 |
+                68 |   ingress {
+                69 |     description = "HTTP"
+                70 |     from_port   = 80
+                71 |     to_port     = 80
+                72 |     protocol    = "tcp"
+                73 |     cidr_blocks = ["0.0.0.0/0"]
+                74 |   }
+                75 |
+                76 |   egress {
+                77 |     from_port   = 0
+                78 |     to_port     = 0
+                79 |     protocol    = "-1"
+                80 |     cidr_blocks = ["0.0.0.0/0"]
+                81 |   }
+                82 |
+                83 |   tags = {
+                84 |     Name = "devsecops-web-sg"
+                85 |   }
+                86 | }
+
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+        FAILED for resource: aws_security_group.web_sg
+        File: \infra\main.tf:63-86
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382
+
+                63 | resource "aws_security_group" "web_sg" {
+                64 |   name        = "devsecops-web-sg"
+                65 |   description = "Security group for web server"
+                66 |   vpc_id      = aws_vpc.main.id
+                67 |
+                68 |   ingress {
+                69 |     description = "HTTP"
+                70 |     from_port   = 80
+                71 |     to_port     = 80
+                72 |     protocol    = "tcp"
+                73 |     cidr_blocks = ["0.0.0.0/0"]
+                74 |   }
+                75 |
+                76 |   egress {
+                77 |     from_port   = 0
+                78 |     to_port     = 0
+                79 |     protocol    = "-1"
+                80 |     cidr_blocks = ["0.0.0.0/0"]
+                81 |   }
+                82 |
+                83 |   tags = {
+                84 |     Name = "devsecops-web-sg"
+                85 |   }
+                86 | }
+
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+        FAILED for resource: aws_security_group.web_sg
+        File: \infra\main.tf:63-86
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80
+
+                63 | resource "aws_security_group" "web_sg" {
+                64 |   name        = "devsecops-web-sg"
+                65 |   description = "Security group for web server"
+                66 |   vpc_id      = aws_vpc.main.id
+                67 |
+                68 |   ingress {
+                69 |     description = "HTTP"
+                70 |     from_port   = 80
+                71 |     to_port     = 80
+                72 |     protocol    = "tcp"
+                73 |     cidr_blocks = ["0.0.0.0/0"]
+                74 |   }
+                75 |
+                76 |   egress {
+                77 |     from_port   = 0
+                78 |     to_port     = 0
+                79 |     protocol    = "-1"
+                80 |     cidr_blocks = ["0.0.0.0/0"]
+                81 |   }
+                82 |
+                83 |   tags = {
+                84 |     Name = "devsecops-web-sg"
+                85 |   }
+                86 | }
+
+Check: CKV_AWS_126: "Ensure that detailed monitoring is enabled for EC2 instances"
+        FAILED for resource: aws_instance.web_server
+        File: \infra\main.tf:98-129
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances
+
+                98  | resource "aws_instance" "web_server" {
+                99  |   ami                    = data.aws_ami.amazon_linux.id
+                100 |   instance_type          = "t2.micro"
+                101 |   subnet_id              = aws_subnet.public_subnet.id
+                102 |   vpc_security_group_ids = [aws_security_group.web_sg.id]
+                103 |
+                104 |   user_data = <<-EOF
+                105 |               #!/bin/bash
+                106 |               yum update -y
+                107 |               yum install -y python3 git
+                108 |
+                109 |               pip3 install flask
+                110 |
+                111 |               cat << 'APP' > /home/ec2-user/app.py
+                112 |               from flask import Flask
+                113 |               app = Flask(__name__)
+                114 |
+                115 |               @app.route("/")
+                116 |               def hello():
+                117 |                   return "Hello from a DevSecOps EC2 instance!"
+                118 |
+                119 |               if __name__ == "__main__":
+                120 |                   app.run(host="0.0.0.0", port=80)
+                121 |               APP
+                122 |
+                123 |               python3 /home/ec2-user/app.py &
+                124 |               EOF
+                125 |
+                126 |   tags = {
+                127 |     Name = "devsecops-web-ec2"
+                128 |   }
+                129 | }
+
+Check: CKV_AWS_135: "Ensure that EC2 is EBS optimized"
+        FAILED for resource: aws_instance.web_server
+        File: \infra\main.tf:98-129
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized
+
+                98  | resource "aws_instance" "web_server" {
+                99  |   ami                    = data.aws_ami.amazon_linux.id
+                100 |   instance_type          = "t2.micro"
+                101 |   subnet_id              = aws_subnet.public_subnet.id
+                102 |   vpc_security_group_ids = [aws_security_group.web_sg.id]
+                103 |
+                104 |   user_data = <<-EOF
+                105 |               #!/bin/bash
+                106 |               yum update -y
+                107 |               yum install -y python3 git
+                108 |
+                109 |               pip3 install flask
+                110 |
+                111 |               cat << 'APP' > /home/ec2-user/app.py
+                112 |               from flask import Flask
+                113 |               app = Flask(__name__)
+                114 |
+                115 |               @app.route("/")
+                116 |               def hello():
+                117 |                   return "Hello from a DevSecOps EC2 instance!"
+                118 |
+                119 |               if __name__ == "__main__":
+                120 |                   app.run(host="0.0.0.0", port=80)
+                121 |               APP
+                122 |
+                123 |               python3 /home/ec2-user/app.py &
+                124 |               EOF
+                125 |
+                126 |   tags = {
+                127 |     Name = "devsecops-web-ec2"
+                128 |   }
+                129 | }
+
+Check: CKV_AWS_79: "Ensure Instance Metadata Service Version 1 is not enabled"
+        FAILED for resource: aws_instance.web_server
+        File: \infra\main.tf:98-129
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-31
+
+                98  | resource "aws_instance" "web_server" {
+                99  |   ami                    = data.aws_ami.amazon_linux.id
+                100 |   instance_type          = "t2.micro"
+                101 |   subnet_id              = aws_subnet.public_subnet.id
+                102 |   vpc_security_group_ids = [aws_security_group.web_sg.id]
+                103 |
+                104 |   user_data = <<-EOF
+                105 |               #!/bin/bash
+                106 |               yum update -y
+                107 |               yum install -y python3 git
+                108 |
+                109 |               pip3 install flask
+                110 |
+                111 |               cat << 'APP' > /home/ec2-user/app.py
+                112 |               from flask import Flask
+                113 |               app = Flask(__name__)
+                114 |
+                115 |               @app.route("/")
+                116 |               def hello():
+                117 |                   return "Hello from a DevSecOps EC2 instance!"
+                118 |
+                119 |               if __name__ == "__main__":
+                120 |                   app.run(host="0.0.0.0", port=80)
+                121 |               APP
+                122 |
+                123 |               python3 /home/ec2-user/app.py &
+                124 |               EOF
+                125 |
+                126 |   tags = {
+                127 |     Name = "devsecops-web-ec2"
+                128 |   }
+                129 | }
+
+Check: CKV_AWS_8: "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted"
+        FAILED for resource: aws_instance.web_server
+        File: \infra\main.tf:98-129
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13
+
+                98  | resource "aws_instance" "web_server" {
+                99  |   ami                    = data.aws_ami.amazon_linux.id
+                100 |   instance_type          = "t2.micro"
+                101 |   subnet_id              = aws_subnet.public_subnet.id
+                102 |   vpc_security_group_ids = [aws_security_group.web_sg.id]
+                103 |
+                104 |   user_data = <<-EOF
+                105 |               #!/bin/bash
+                106 |               yum update -y
+                107 |               yum install -y python3 git
+                108 |
+                109 |               pip3 install flask
+                110 |
+                111 |               cat << 'APP' > /home/ec2-user/app.py
+                112 |               from flask import Flask
+                113 |               app = Flask(__name__)
+                114 |
+                115 |               @app.route("/")
+                116 |               def hello():
+                117 |                   return "Hello from a DevSecOps EC2 instance!"
+                118 |
+                119 |               if __name__ == "__main__":
+                120 |                   app.run(host="0.0.0.0", port=80)
+                121 |               APP
+                122 |
+                123 |               python3 /home/ec2-user/app.py &
+                124 |               EOF
+                125 |
+                126 |   tags = {
+                127 |     Name = "devsecops-web-ec2"
+                128 |   }
+                129 | }
+
+Check: CKV2_AWS_41: "Ensure an IAM role is attached to EC2 instance"
+        FAILED for resource: aws_instance.web_server
+        File: \main.tf:98-129
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-an-iam-role-is-attached-to-ec2-instance
+
+                98  | resource "aws_instance" "web_server" {
+                99  |   ami                    = data.aws_ami.amazon_linux.id
+                100 |   instance_type          = "t2.micro"
+                101 |   subnet_id              = aws_subnet.public_subnet.id
+                102 |   vpc_security_group_ids = [aws_security_group.web_sg.id]
+                103 |
+                104 |   user_data = <<-EOF
+                105 |               #!/bin/bash
+                106 |               yum update -y
+                107 |               yum install -y python3 git
+                108 |
+                109 |               pip3 install flask
+                110 |
+                111 |               cat << 'APP' > /home/ec2-user/app.py
+                112 |               from flask import Flask
+                113 |               app = Flask(__name__)
+                114 |
+                115 |               @app.route("/")
+                116 |               def hello():
+                117 |                   return "Hello from a DevSecOps EC2 instance!"
+                118 |
+                119 |               if __name__ == "__main__":
+                120 |                   app.run(host="0.0.0.0", port=80)
+                121 |               APP
+                122 |
+                123 |               python3 /home/ec2-user/app.py &
+                124 |               EOF
+                125 |
+                126 |   tags = {
+                127 |     Name = "devsecops-web-ec2"
+                128 |   }
+                129 | }
+
+Check: CKV2_AWS_11: "Ensure VPC flow logging is enabled in all VPCs"
+        FAILED for resource: aws_vpc.main
+        File: \main.tf:17-25
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/logging-9-enable-vpc-flow-logging
+
+                17 | resource "aws_vpc" "main" {
+                18 |   cidr_block           = "10.0.0.0/16"
+                19 |   enable_dns_hostnames = true
+                20 |   enable_dns_support   = true
+                21 |
+                22 |   tags = {
+                23 |     Name = "devsecops-vpc"
+                24 |   }
+                25 | }
+
+Check: CKV2_AWS_12: "Ensure the default security group of every VPC restricts all traffic"
+        FAILED for resource: aws_vpc.main
+        File: \main.tf:17-25
+        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-4
+
+                17 | resource "aws_vpc" "main" {
+                18 |   cidr_block           = "10.0.0.0/16"
+                19 |   enable_dns_hostnames = true
+                20 |   enable_dns_support   = true
+                21 |
+                22 |   tags = {
+                23 |     Name = "devsecops-vpc"
+                24 |   }
+                25 | }

@@ -101,30 +101,43 @@ resource "aws_instance" "web_server" {
   subnet_id              = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.web_sg.id]
 
+  # CKV_AWS_126
+  monitoring = true
+
+  # CKV_AWS_79 (IMDSv2)
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
+  }
+
+  # CKV_AWS_8 (EBS encryption)
+  root_block_device {
+    encrypted = true
+  }
+
+  # CKV2_AWS_41 (IAM role attached) – we’ll add the instance profile in step 1.2
+  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
+
   user_data = <<-EOF
-              #!/bin/bash
-              yum update -y
-              yum install -y python3 git
-
-              pip3 install flask
-
-              cat << 'APP' > /home/ec2-user/app.py
-              from flask import Flask
-              app = Flask(__name__)
-
-              @app.route("/")
-              def hello():
-                  return "Hello from a DevSecOps EC2 instance!"
-
-              if __name__ == "__main__":
-                  app.run(host="0.0.0.0", port=80)
-              APP
-
-              python3 /home/ec2-user/app.py &
-              EOF
+    #!/bin/bash
+    yum update -y
+    yum install -y python3 git
+    pip3 install flask
+    cat << 'APP' > /home/ec2-user/app.py
+    from flask import Flask
+    app = Flask(__name__)
+    @app.route("/")
+    def hello():
+        return "Hello from a hardened DevSecOps EC2 instance!"
+    if __name__ == "__main__":
+        app.run(host="0.0.0.0", port=80)
+    APP
+    python3 /home/ec2-user/app.py &
+  EOF
 
   tags = {
     Name = "devsecops-web-ec2"
   }
 }
+
 
