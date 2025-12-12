@@ -1,6 +1,12 @@
 # Local .terraform directories
 .terraform/
 
+#Sensitive Terraform Variables
+terraform.tfvars
+
+#Private Keys
+*.pem
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
