@@ -73,14 +73,6 @@ resource "aws_security_group" "web_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = [var.ssh_allowed_ip]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -92,3 +84,47 @@ resource "aws_security_group" "web_sg" {
     Name = "devsecops-web-sg"
   }
 }
+
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
+}
+
+resource "aws_instance" "web_server" {
+  ami                    = data.aws_ami.amazon_linux.id
+  instance_type          = "t2.micro"
+  subnet_id              = aws_subnet.public_subnet.id
+  vpc_security_group_ids = [aws_security_group.web_sg.id]
+
+  user_data = <<-EOF
+              #!/bin/bash
+              yum update -y
+              yum install -y python3 git
+
+              pip3 install flask
+
+              cat << 'APP' > /home/ec2-user/app.py
+              from flask import Flask
+              app = Flask(__name__)
+
+              @app.route("/")
+              def hello():
+                  return "Hello from a DevSecOps EC2 instance!"
+
+              if __name__ == "__main__":
+                  app.run(host="0.0.0.0", port=80)
+              APP
+
+              python3 /home/ec2-user/app.py &
+              EOF
+
+  tags = {
+    Name = "devsecops-web-ec2"
+  }
+}
+
