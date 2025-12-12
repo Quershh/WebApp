@@ -24,6 +24,7 @@ resource "aws_vpc" "main" {
   }
 }
 
+#checkov:skip=CKV_AWS_130: This is an intentionally public subnet for demo purposes.
 resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.1.0/24"
@@ -204,5 +205,52 @@ resource "aws_iam_instance_profile" "ec2_profile" {
   name = "devsecops-ec2-profile"
   role = aws_iam_role.ec2_role.name
 }
+
+resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
+  name              = "/aws/vpc/devsecops-flow-logs"
+  retention_in_days = 14
+}
+
+data "aws_iam_policy_document" "flow_logs_assume_role" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["vpc-flow-logs.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "flow_logs_role" {
+  name               = "devsecops-vpc-flow-logs-role"
+  assume_role_policy = data.aws_iam_policy_document.flow_logs_assume_role.json
+}
+
+data "aws_iam_policy_document" "flow_logs_policy" {
+  statement {
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+      "logs:DescribeLogGroups",
+      "logs:DescribeLogStreams"
+    ]
+    resources = ["${aws_cloudwatch_log_group.vpc_flow_logs.arn}:*"]
+  }
+}
+
+resource "aws_iam_role_policy" "flow_logs_role_policy" {
+  name   = "devsecops-vpc-flow-logs-policy"
+  role   = aws_iam_role.flow_logs_role.id
+  policy = data.aws_iam_policy_document.flow_logs_policy.json
+}
+
+resource "aws_flow_log" "vpc" {
+  vpc_id               = aws_vpc.main.id
+  traffic_type         = "ALL"
+  log_destination_type = "cloud-watch-logs"
+  log_destination      = aws_cloudwatch_log_group.vpc_flow_logs.arn
+  iam_role_arn         = aws_iam_role.flow_logs_role.arn
+}
+
 
 
