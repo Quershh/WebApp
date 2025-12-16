@@ -72,3 +72,21 @@ jobs:
 
       - name: Run Bandit
         run: bandit app/app.py
+      # -------------------------
+      # Container Build & Scan - Trivy
+      # -------------------------
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: |
+          docker build -t devsecops-web:ci ./app
+
+      - name: Run Trivy image scan
+        uses: aquasecurity/trivy-action@0.24.0
+        with:
+          image-ref: devsecops-web:ci
+          format: table
+          exit-code: 1
+          severity: CRITICAL,HIGH
+
