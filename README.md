@@ -1,37 +1,41 @@
 # DevSecOps AWS Web Application (Terraform + GitHub Actions)
 
 ## Overview
-This project demonstrates an end-to-end **DevSecOps workflow** using AWS, Terraform, and GitHub Actions.
+This project demonstrates an end-to-end **DevSecOps workflow** using AWS, Terraform, Docker, and GitHub Actions.
 
 It covers:
 - Infrastructure as Code (IaC)
-- Security scanning (IaC, dependencies, and code)
+- Security scanning (IaC, dependencies, code, and containers)
+- CI for pull requests with enforced security checks
 - Secure Continuous Deployment (CD) using GitHub Actions with AWS OIDC
 - Remote Terraform state management
 
-The project is designed as a **learning and portfolio project** and reflects real-world DevSecOps patterns and trade-offs.
+The project is designed as a **learning and portfolio project** and reflects real-world DevSecOps patterns, decisions, and trade-offs.
 
 ---
 
 ## Architecture
 - AWS VPC with public subnet
-- EC2 instance running a simple Flask web application
+- EC2 instance provisioned via Terraform
+- Dockerised Flask web application
 - Security groups with restricted ingress
 - VPC Flow Logs enabled
 - Terraform remote state stored in S3 with DynamoDB locking
-- GitHub Actions CD pipeline using AWS OIDC (no long-lived credentials)
+- GitHub Actions CI/CD pipelines using AWS OIDC (no long-lived credentials)
 
 ---
 
 ## Technologies Used
 - **AWS**: EC2, VPC, IAM, CloudWatch, S3, DynamoDB
 - **Terraform**: Infrastructure provisioning and state management
-- **GitHub Actions**: Continuous Deployment
+- **Docker**: Application containerisation
+- **GitHub Actions**: CI and CD pipelines
 - **Python / Flask**: Sample web application
 - **Security Tools**:
   - Checkov (IaC scanning)
   - pip-audit (dependency scanning)
   - Bandit (static code analysis)
+  - Trivy (container image scanning)
 
 ---
 
@@ -45,6 +49,20 @@ Infrastructure is fully defined using Terraform.
 - Security hardening (IMDSv2, encrypted EBS, IAM roles)
 
 ---
+
+## Containerisation
+The application is containerised using **Docker** to ensure consistency between local development and CI environments.
+
+### Key Characteristics
+- Lightweight Python base image
+- `.dockerignore` to reduce image size and attack surface
+- Explicit port exposure
+- Application runs on port `8080`
+
+### Build and Run Locally
+
+docker build -t devsecops-web ./app
+docker run -p 8080:8080 devsecops-web
 
 ## Security Scanning
 
@@ -69,11 +87,46 @@ Result:
 ---
 
 ### Static Code Analysis (Bandit)
-The Flask application code is scanned using Bandit.
+The Flask application code is scanned using Bandit as part of the CI pipeline.
 
-One finding (binding to all interfaces) was identified and remediated by:
-- Binding the application to localhost
-- Relying on AWS networking controls for exposure
+One finding was identified:
+- Binding to all network interfaces (0.0.0.0)
+
+This behaviour is required for Docker container networking and is therefore:
+- Explicitly suppressed using an inline # nosec comment
+- Documented rather than disabling the rule globally
+
+This reflects conscious risk acceptance and secure decision-making.
+
+---
+
+### Container Image Scanning (Trivy)
+Docker images are scanned using Trivy during CI.
+
+### Key points:
+- Image is built during CI
+- Trivy scans OS packages and application dependencies
+- CI fails on HIGH or CRITICAL vulnerabilities
+
+This prevents vulnerable container images from being merged into the main branch.
+
+---
+
+### Continuous Integration (CI)
+
+### Pull Request Workflow
+
+All changes are made via feature branches and merged through Pull Requests.
+
+Each PR triggers a CI pipeline that runs:
+- Terraform formatting and validation
+- Checkov IaC security scanning
+- Bandit SAST
+- pip-audit dependency scanning
+- Docker image build
+- Trivy container image scanning
+
+Branch protection ensures Pull Requests cannot be merged unless all checks pass.
 
 ---
 
@@ -116,4 +169,3 @@ The following improvements are planned:
 This project is for learning and demonstration purposes.  
 Some configurations are intentionally simplified for clarity and cost control.
 
-quick update
