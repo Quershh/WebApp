@@ -156,12 +156,12 @@ This trade-off is documented intentionally. In a production environment, alterna
 
 ## Roadmap / Planned Enhancements
 The following improvements are planned:
-- CI pipeline for pull requests (Terraform plan + security scans)
-- Dockerisation of the application
-- Container image scanning (Trivy)
+- SBOM (Software Bill of Materials) generation
+- Image promotion workflows
 - Removal of SSH access using AWS SSM
-- Application Load Balancer + HTTPS
+- Application Load Balancer with HTTPS
 - Manual approval gates for production deployments
+- Migration to managed container services (ECS/EKS)
 
 ---
 
