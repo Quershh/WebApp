@@ -1,0 +1,74 @@
+name: CI - Security & Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  security-ci:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # -------------------------
+      # Terraform checks
+      # -------------------------
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+
+      - name: Terraform fmt
+        working-directory: infra
+        run: terraform fmt -check
+
+      - name: Terraform init (no backend)
+        working-directory: infra
+        run: terraform init -backend=false
+
+      - name: Terraform validate
+        working-directory: infra
+        run: terraform validate
+
+      # -------------------------
+      # IaC Security - Checkov
+      # -------------------------
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: infra
+          skip_check: CKV_AWS_109,CKV_AWS_111,CKV_AWS_356,CKV_AWS_130,CKV_AWS_135
+          quiet: true
+
+      # -------------------------
+      # Python Dependency Scanning
+      # -------------------------
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pip-audit
+        run: pip install pip-audit
+
+      - name: Run pip-audit
+        run: pip-audit -r app/requirements.txt
+
+      # -------------------------
+      # SAST - Bandit
+      # -------------------------
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: Run Bandit
+        run: bandit app/app.py

@@ -1,0 +1,133 @@
+[35m.gitignore[m[36m:[m#Private [1;31mKey[ms
+[35m.gitignore[m[36m:[m# [1;31mpassword[m, private [1;31mkey[ms, and other [1;31msecret[ms. These should not be part of version 
+[35mREADME.md[m[36m:[m### [1;31mKey[m Features
+[35mREADME.md[m[36m:[m[1;31mKey[m characteristics:
+[35mREADME.md[m[36m:[m- No stored AWS access [1;31mkey[ms
+[35mREADME.md[m[36m:[mAn attempt was made to encrypt CloudWatch Logs with a customer-managed KMS [1;31mkey[m.
+[35mSecurity/Checkov/First scan.txt[m[36m:[mCheck: CKV_AWS_41: "Ensure no hard coded AWS access [1;31mkey[m and [1;31msecret[m [1;31mkey[m exists in provider"
+[35mSecurity/Checkov/First scan.txt[m[36m:[m        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/[1;31msecret[ms-policies/bc-aws-[1;31msecret[ms-5
+[35mSecurity/Checkov/First scan.txt[m[36m:[mCheck: CKV_AWS_46: "Ensure no hard-coded [1;31msecret[ms exist in EC2 user data"
+[35mSecurity/Checkov/First scan.txt[m[36m:[m        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/[1;31msecret[ms-policies/bc-aws-[1;31msecret[ms-1
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[mCheck: CKV_AWS_41: "Ensure no hard coded AWS access [1;31mkey[m and [1;31msecret[m [1;31mkey[m exists in provider"
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/[1;31msecret[ms-policies/bc-aws-[1;31msecret[ms-5
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[mCheck: CKV_AWS_46: "Ensure no hard-coded [1;31msecret[ms exist in EC2 user data"
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/[1;31msecret[ms-policies/bc-aws-[1;31msecret[ms-1
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[mCheck: CKV_AWS_227: "Ensure KMS [1;31mkey[m is enabled"
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-aws-[1;31mkey[m-management-service-kms-[1;31mkey[m-is-enabled
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[mCheck: CKV_AWS_33: "Ensure KMS [1;31mkey[m policy does not contain wildcard (*) principal"
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-kms-[1;31mkey[m-policy-does-not-contain-wildcard-principal
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        PASSED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Scan 2 results.txt[m[36m:[m        FAILED for resource: aws_iam_policy_document.kms_[1;31mkey[m_policy
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV_AWS_46: "Ensure no hard-coded [1;31msecret[ms exist in EC2 user data"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/[1;31msecret[ms-policies/bc-aws-[1;31msecret[ms-1
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV_AWS_227: "Ensure KMS [1;31mkey[m is enabled"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        PASSED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-aws-[1;31mkey[m-management-service-kms-[1;31mkey[m-is-enabled
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV_AWS_33: "Ensure KMS [1;31mkey[m policy does not contain wildcard (*) principal"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        PASSED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-kms-[1;31mkey[m-policy-does-not-contain-wildcard-principal
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        PASSED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV_AWS_41: "Ensure no hard coded AWS access [1;31mkey[m and [1;31msecret[m [1;31mkey[m exists in provider"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        Guide: https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/[1;31msecret[ms-policies/bc-aws-[1;31msecret[ms-5
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        FAILED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                258 | resource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                259 |   description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        FAILED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                258 | resource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                259 |   description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        FAILED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        FAILED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                258 | resource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                259 |   description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        FAILED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                258 | resource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                259 |   description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                261 |   enable_[1;31mkey[m_rotation     = true
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        FAILED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                258 | resource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                259 |   description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        FAILED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[mCheck: CKV2_AWS_64: "Ensure KMS [1;31mkey[m Policy is defined"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        FAILED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m        FAILED for resource: aws_kms_[1;31mkey[m.cw_logs
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                258 | resource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                259 |   description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                261 |   enable_[1;31mkey[m_rotation     = true
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                258 | resource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                259 |   description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                261 |   enable_[1;31mkey[m_rotation     = true
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                258 | resource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                259 |   description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                261 |   enable_[1;31mkey[m_rotation     = true
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                258 | resource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                259 |   description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                261 |   enable_[1;31mkey[m_rotation     = true
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                258 | resource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                259 |   description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                261 |   enable_[1;31mkey[m_rotation     = true
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                258 | resource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                259 |   description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                261 |   enable_[1;31mkey[m_rotation     = true
+[35mSecurity/Checkov/Second scan.txt[m[36m:[m                261 |   enable_[1;31mkey[m_rotation     = true
+[35minfra/main.tf[m[36m:[m    [1;31mkey[m            = "infra/terraform.tfstate"
+[35minfra/main.tf[m[36m:[mdata "aws_iam_policy_document" "kms_[1;31mkey[m_policy" {
+[35minfra/main.tf[m[36m:[m  # Allow account root to administer the [1;31mkey[m (but not wildcard kms:*)
+[35minfra/main.tf[m[36m:[m    sid    = "Allow[1;31mKey[mAdministration"
+[35minfra/main.tf[m[36m:[m      "kms:Schedule[1;31mKey[mDeletion",
+[35minfra/main.tf[m[36m:[m      "kms:Cancel[1;31mKey[mDeletion"
+[35minfra/main.tf[m[36m:[m  # Allow CloudWatch Logs to use the [1;31mkey[m
+[35minfra/main.tf[m[36m:[m    "kms:GenerateData[1;31mKey[m*",
+[35minfra/main.tf[m[36m:[m    "kms:Describe[1;31mKey[m",
+[35minfra/main.tf[m[36m:[mresource "aws_kms_[1;31mkey[m" "cw_logs" {
+[35minfra/main.tf[m[36m:[m  description             = "KMS [1;31mkey[m for CloudWatch Logs encryption (DevSecOps project)"
+[35minfra/main.tf[m[36m:[m  enable_[1;31mkey[m_rotation     = true
+[35minfra/main.tf[m[36m:[m  policy                  = data.aws_iam_policy_document.kms_[1;31mkey[m_policy.json
+[35minfra/main.tf[m[36m:[m  target_[1;31mkey[m_id = aws_kms_[1;31mkey[m.cw_logs.[1;31mkey[m_id
+[35mterraform-backend/main.tf[m[36m:[m  hash_[1;31mkey[m     = "LockID"
