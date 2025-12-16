@@ -115,3 +115,5 @@ The following improvements are planned:
 ## Disclaimer
 This project is for learning and demonstration purposes.  
 Some configurations are intentionally simplified for clarity and cost control.
+
+quick update for testing
