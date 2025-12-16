@@ -218,10 +218,12 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 }
 
 resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
+  # checkov:skip=CKV_AWS_158: AWS-managed encryption used due to CMK grant race condition with CloudWatch Logs
+
   name              = "/aws/vpc/devsecops-flow-logs"
   retention_in_days = 365
-
 }
+
 
 data "aws_iam_policy_document" "flow_logs_assume_role" {
   statement {
